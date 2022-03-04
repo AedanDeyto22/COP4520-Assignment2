@@ -54,16 +54,13 @@ public class Guest implements Runnable
                 else
                 {
                     // If they haven't gotten the cupcake then get one
-                    if (gotCupcake == false)
+                    // If the cupcake is not taken yet then take it, to indicate to the counter
+                    // that a new unique person has entered the labyrinth.
+                    // If the cupcake has been already taken then just leave the plate empty and move on
+                    if (gotCupcake == false && labyrinth.hasCupcake == true)
                     {
-                        // If the cupcake is not taken yet then take it, to indicate to the counter
-                        // that a new unique person has entered the labyrinth.
-                        // If the cupcake has been already taken then just leave the plate empty and move on
-                        if (labyrinth.hasCupcake == true)
-                        {
-                            gotCupcake = true;
-                            labyrinth.hasCupcake = false;
-                        }
+                        gotCupcake = true;
+                        labyrinth.hasCupcake = false;
                     }
                 }
 

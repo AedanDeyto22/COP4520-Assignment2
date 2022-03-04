@@ -112,16 +112,19 @@ class Guest implements Runnable
 
             else
             {
-                // When the thread is queued in and has enter the room it tooks
+                // When the thread is queued in and has enter the room it looks
                 // and them leaves.
-                try
+
+                //  Removed for the fastest runtime for large threads, but
+                // if want to simulate with smaller threads then you can uncomment Thread.sleep().
+                /*try
                 {
                     Thread.sleep(10);
                 }
                 catch (Exception error)
                 {
                     error.printStackTrace();
-                }
+                }*/
 
                 // When it leaves it informs the next in Queue and tells itself
                 // thats its not queued in anymore.
@@ -146,7 +149,7 @@ public class Showroom
         AtomicReference<QNode> tail = new AtomicReference<QNode>(null);
         ExecutorService executor = Executors.newFixedThreadPool(100);
         Showroom vase = new Showroom();
-        int threadAmount = 10;
+        int threadAmount = 100;
         long start = System.nanoTime();
 
         // Creates all the threads to represent the amount of guest in the program
@@ -164,9 +167,9 @@ public class Showroom
             {
                 long end = System.nanoTime();
                 long exectution = end - start;
-                double convert = exectution / 1000000000;
+                double convert = exectution / 1000000;
 
-                System.out.println("Execution Time: " + convert + " Seconds");
+                System.out.println("Execution Time: " + convert + " Milliseconds");
             }
         }
         catch (InterruptedException error)
