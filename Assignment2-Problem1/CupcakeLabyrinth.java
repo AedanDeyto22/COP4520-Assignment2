@@ -2,6 +2,7 @@
 // Project 2 Problem 1 for COP4520
 // 3/4/2022
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.*;
 import java.io.*;
 
@@ -10,8 +11,8 @@ public class CupcakeLabyrinth
     public ArrayList<Guest> guestList;
     public int guestAmount;
     public boolean canRun;
-    public volatile boolean allDone;
-    public volatile boolean canChoose;
+    public AtomicBoolean allDone;
+    public AtomicBoolean canChoose;
 
     public static void main(String [] args)
     {
@@ -23,8 +24,8 @@ public class CupcakeLabyrinth
         int enterAmount = 0;
         host.guestAmount = 100;
         host.canRun = true;
-        host.allDone = false;
-        host.canChoose = true;
+        host.allDone = new AtomicBoolean(false);
+        host.canChoose = new AtomicBoolean(true);
         long start = System.nanoTime();
 
         // Create all guest and choose guest 1 as the one that notifies the Minotour
@@ -48,17 +49,17 @@ public class CupcakeLabyrinth
         // Will keep choosing a guest to enter the labyrinth when it can.
         while(host.canRun == true)
         {
-            if (host.allDone == true)
+            if (host.allDone.get() == true)
             {
                 break;
             }
 
             // When it can choose a guets it will randomly choose and set itself to false
             // so it can't choose another guest until the thread that it choose says it can
-            if (host.canChoose == true)
+            if (host.canChoose.get() == true)
             {
                 enterAmount++;
-                host.canChoose = false;
+                host.canChoose.set(false);
                 int chosenGuest = rand.nextInt(host.guestAmount);
                 host.guestList.get(chosenGuest).enter = true;
             }

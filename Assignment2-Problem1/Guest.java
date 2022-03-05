@@ -1,3 +1,4 @@
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.*;
 import java.io.*;
 
@@ -46,7 +47,7 @@ public class Guest implements Runnable
                     // If its count + 1 is equal to the guest then notify the host (Minotour) that everyone has entered the Labyrinth
                     if (host.guestAmount == (count + 1))
                     {
-                        host.allDone = true;
+                        host.allDone.set(true);
                     }
                 }
 
@@ -65,7 +66,7 @@ public class Guest implements Runnable
                 }
 
                 this.enter = false;
-                host.canChoose = true;
+                host.canChoose.set(true);
             } // End of Active Thread
 
             else
@@ -80,7 +81,7 @@ public class Guest implements Runnable
                 }
             }
 
-            if (host.allDone == true)
+            if (host.allDone.get() == true)
             {
                 canRun = false;
             }
