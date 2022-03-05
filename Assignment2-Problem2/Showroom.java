@@ -7,7 +7,7 @@ import java.io.*;
 
 class QNode
 {
-    volatile boolean canEnter = false;
+    volatile boolean canEnter = true;
     volatile QNode next = null;
 }
 
@@ -52,10 +52,10 @@ class Guest implements Runnable
         // If there is no predicesor then you can enter the crystal vase room
         if (pred != null)
         {
-            qnode.canEnter = true;
+            qnode.canEnter = false;
             pred.next = qnode;
 
-            while (qnode.canEnter)
+            while (qnode.canEnter == false)
             {
             }
         }
@@ -83,7 +83,7 @@ class Guest implements Runnable
 
         // Tells the next thread that it can enter the Crysal vase room
         // Sets the threads queue next to null to show that its exited the Queue.
-        qnode.next.canEnter = false;
+        qnode.next.canEnter = true;
         qnode.next = null;
     }
 
@@ -149,7 +149,7 @@ public class Showroom
         AtomicReference<QNode> tail = new AtomicReference<QNode>(null);
         ExecutorService executor = Executors.newFixedThreadPool(100);
         Showroom vase = new Showroom();
-        int threadAmount = 100;
+        int threadAmount = 100; // Can edit this veriable to change the amount of threads used
         long start = System.nanoTime();
 
         // Creates all the threads to represent the amount of guest in the program

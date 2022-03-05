@@ -21,7 +21,7 @@ public class CupcakeLabyrinth
         host.guestList = new ArrayList<Guest>();
         int counter = 0;
         int enterAmount = 0;
-        host.guestAmount = 10;
+        host.guestAmount = 100;
         host.canRun = true;
         host.allDone = false;
         host.canChoose = true;

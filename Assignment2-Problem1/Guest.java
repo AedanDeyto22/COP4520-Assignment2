@@ -68,6 +68,18 @@ public class Guest implements Runnable
                 host.canChoose = true;
             } // End of Active Thread
 
+            else
+            {
+                try
+                {
+                    Thread.sleep(1);
+                }
+                catch (Exception error)
+                {
+                    error.printStackTrace();
+                }
+            }
+
             if (host.allDone == true)
             {
                 canRun = false;
