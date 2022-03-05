@@ -13,11 +13,10 @@ public class Guest implements Runnable
     public Labyrinth labyrinth;
     public CupcakeLabyrinth host;
 
-    Guest(int num, boolean isCounter, boolean gotCupcake, Labyrinth labyrinth, CupcakeLabyrinth host)
+    Guest(int num, Labyrinth labyrinth, CupcakeLabyrinth host)
     {
         this.num = num;
-        this.isCounter = isCounter;
-        this.gotCupcake = gotCupcake;
+        this.gotCupcake = false;
         this.labyrinth = labyrinth;
         this.host = host;
         enter = false;
@@ -34,7 +33,7 @@ public class Guest implements Runnable
             if (enter == true)
             {
                 // If its chosen to be the counter then it has a specific task to do.
-                if (isCounter == true)
+                if (host.counter == num)
                 {
                     // When it enters the labyrinth if they see the Cupcake gone it means sone has entered
                     // and will increments it count

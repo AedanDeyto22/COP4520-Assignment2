@@ -10,6 +10,7 @@ public class CupcakeLabyrinth
 {
     public ArrayList<Guest> guestList;
     public int guestAmount;
+    public int counter = 0;
     public boolean canRun;
     public AtomicBoolean allDone;
     public AtomicBoolean canChoose;
@@ -20,7 +21,6 @@ public class CupcakeLabyrinth
         Labyrinth labyrinth = new Labyrinth();
         Random rand = new Random();
         host.guestList = new ArrayList<Guest>();
-        int counter = 0;
         int enterAmount = 0;
         host.guestAmount = 100;
         host.canRun = true;
@@ -31,17 +31,8 @@ public class CupcakeLabyrinth
         // Create all guest and choose guest 1 as the one that notifies the Minotour
         for (int i = 0; i < host.guestAmount; i++)
         {
-            if (counter == i)
-            {
-                Guest temp = new Guest(i, true, false, labyrinth, host);
-                host.guestList.add(temp);
-            }
-            else
-            {
-                Guest temp = new Guest(i, false, false, labyrinth, host);
-                host.guestList.add(temp);
-            }
-
+            Guest temp = new Guest(i, labyrinth, host);
+            host.guestList.add(temp);
             Thread th = new Thread(host.guestList.get(i));
             th.start();
         }
