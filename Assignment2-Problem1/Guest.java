@@ -9,7 +9,7 @@ public class Guest implements Runnable
     public boolean isCounter;
     public boolean gotCupcake;
     public boolean canRun;
-    public boolean enter;
+    public AtomicBoolean enter;
     public Labyrinth labyrinth;
     public CupcakeLabyrinth host;
 
@@ -19,7 +19,7 @@ public class Guest implements Runnable
         this.gotCupcake = false;
         this.labyrinth = labyrinth;
         this.host = host;
-        enter = false;
+        enter = new AtomicBoolean(false);
         canRun = true;
         this.count = 0;
     }
@@ -30,7 +30,7 @@ public class Guest implements Runnable
         while(canRun == true)
         {
             // If its chosen to enter the Labyrinth it will
-            if (enter == true)
+            if (enter.get() == true)
             {
                 // If its chosen to be the counter then it has a specific task to do.
                 if (host.counter == num)
@@ -64,7 +64,7 @@ public class Guest implements Runnable
                     }
                 }
 
-                this.enter = false;
+                this.enter.set(false);
                 host.canChoose.set(true);
             } // End of Active Thread
 

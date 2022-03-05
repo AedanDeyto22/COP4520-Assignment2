@@ -52,7 +52,7 @@ public class CupcakeLabyrinth
                 enterAmount++;
                 host.canChoose.set(false);
                 int chosenGuest = rand.nextInt(host.guestAmount);
-                host.guestList.get(chosenGuest).enter = true;
+                host.guestList.get(chosenGuest).enter.set(true);
             }
         }
 
